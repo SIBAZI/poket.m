@@ -7,7 +7,7 @@
 <?php
 require_once 'db.php';
 if(empty($_GET["car_name"])) exit();
-echo $_GET["car_name"];
+// echo $_GET["car_name"];
 $dbh = mysql();
 $sql = "SELECT * FROM cars WHERE car_name = :car_name";
 // $sqlの情報を出力「文字数、型、内容など」
@@ -26,3 +26,6 @@ $result = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
 // 結果を出力
 var_dump($result);
+
+$text = "さようなら";
+echo "<p>{$text}</p>";

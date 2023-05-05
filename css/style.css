@@ -4,14 +4,12 @@
 
 /* 基盤設定 */
 
-html {
-    font-size: 100%;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
+    font-size: 100%;
 }
 
 body {
@@ -24,7 +22,6 @@ body {
     min-width: 100vw;
     background: #E7E7E7;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    user-select: none;
     transform: translate3d(0, 0, 0);
     background-color: #E7E7E7;
     font-family: "Helvetica Neue", "Arial", "Hiragino Sans", "Meiryo", sans-serif;
