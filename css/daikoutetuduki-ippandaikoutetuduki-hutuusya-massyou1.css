@@ -33,7 +33,7 @@ img {
 
 
 /* サイドメニュー */
-.side{
+.side {
   background-color: #4b4b4b;
   width: 130px;
   height: px;
@@ -43,8 +43,9 @@ img {
   top: 400px;
   border-radius: 6px 0 0 6px;
 }
-.side li{
-  padding:1em 0;
+
+.side li {
+  padding: 1em 0;
 }
 
 
