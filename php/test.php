@@ -40,3 +40,6 @@ $result = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
 // 結果を出力
 var_dump($result);
+
+$num1 = 320;
+$num2 = & $num1;
