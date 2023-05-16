@@ -159,7 +159,7 @@ body {
   
   /* 準備頂く物 */
   .demo0 {
-    width: 720px;
+    width: 600px;
     margin: 20px auto;
     padding: 10px 0;
     font-family: sans-serif;
@@ -284,9 +284,9 @@ body {
   
   /* 車検証 */
   
-  .box1 {
+  /* .box1 {
     margin-top: 60px;
-  }
+  } */
   
   .img1 {
     pointer-events: none;
