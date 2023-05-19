@@ -71,7 +71,7 @@ let select_secondhand_car_light_car = document.querySelector(".select-secondhand
 let secondhand_car_light_car_cash = document.querySelector(".secondhand-car-light-car-cash");
 let secondhand_car_light_car_credit = document.querySelector(".secondhand-car-light-car-credit");
 
-secondhand_car_light_car.onclick = function(e) {
+secondhand_car_light_car.onclick = function (e) {
     e.stopPropagation();
     secondhand_car_standard_size_car.classList.remove('up2');
     secondhand_car_light_car.classList.remove('up2');
