@@ -1,3 +1,10 @@
+<!-- <form action="" method="get">
+  <p>検索したいキーワードを入力してください。</p>
+  <input type="text" name="total" placeholder="キーワードを入力">
+  <input type="text" name="pay" placeholder="キーワードを入力">
+  <input type="submit" name="submit" value="検索">
+</form> -->
+
 <?php
 
 /* 例 1 */
@@ -142,25 +149,84 @@ function primenumber()
 {
     for ($i = 2; $i <= 100; $i++) {
         // 初期化
-        $isDivisible =false;
+        $isDivisible = false;
         for ($k = 2; $k < $i; $k++) {
             if ($i % $k === 0) {
                 $isDivisible = true;
             }
         }
         if ($isDivisible === false) {
-            echo("<br>");
-            echo($i);
+            echo ("<br>");
+            echo ($i);
         }
     }
 }
 
 // primenumber();
 
-function oturi(int $totale,int $pay)
-// 
+
+// お金算出
+
+
+
+
+function oturi(int $totale, int $pay)
 {
-    # code...
+    $oturi = $pay - $totale;
+    echo('お釣りの額は'.$oturi);
+    echo ("<br>");
+    echo ("5000円札の枚数は");
+    echo ((int) ($oturi / 5000));
+    // oturi-5000*枚数
+    $oturi -= 5000 * (int) ($oturi / 5000);
+    echo ("<br>");
+    echo ("1000円札の枚数は");
+    echo ((int) ($oturi / 1000));
+    $oturi -= 1000 * (int) ($oturi / 1000);
+    echo ("<br>");
+    echo ("500円玉の枚数は");
+    echo ((int) ($oturi / 500));
+    $oturi -= 500 * (int) ($oturi / 500);
+    echo ("<br>");
+    echo ("100円玉の枚数は");
+    echo ((int) ($oturi / 100));
+    $oturi -= 100 * (int) ($oturi / 100);
+    echo ("<br>");
+    echo ("50円玉の枚数は");
+    echo ((int) ($oturi / 50));
+    $oturi -= 50 * (int) ($oturi / 50);
+    echo ("<br>");
+    echo ("10円玉の枚数は");
+    echo ((int) ($oturi / 10));
+    $oturi -= 10 * (int) ($oturi / 10);
+    echo ("<br>");
+    echo ("5円玉の枚数は");
+    echo ((int) ($oturi / 5));
+    $oturi -= 5 * (int) ($oturi / 5);
+    echo ("<br>");
+    echo ("1円玉の枚数は");
+    echo ((int) ($oturi / 1));
+    $oturi -= 1 * (int) ($oturi / 1);
+
 }
 
-oturi(9000,10000);
+// oturi(32561, 40000);
+
+function oturi_juki(int $totale, int $pay)
+{
+    $oturi = $pay - $totale;
+    echo $oturi;
+    echo ("<br>");
+    foreach ([5000,1000,500,100,50,10,5,1] as $value) {
+        echo $value . "は";
+        echo (int)($oturi / $value);
+        echo ("<br>");
+
+        $oturi %= $value;
+    }
+}
+// エラー防止
+// if(empty($_GET["total"]) || empty($_GET["pay"])) exit();
+oturi_juki($_GET["total"], $_GET["pay"]);
+
+// 

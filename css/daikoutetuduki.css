@@ -61,7 +61,7 @@ span {
 
 .daikoutetuduki-list li {
     margin-top: -1px;
-    border-top: solid 1px #4b4b4b;
+    border-top: solid 1px #4d4d4d;
 }
 
 .daikoutetuduki-list li:first-child {
@@ -70,7 +70,7 @@ span {
 }
 
 .daikoutetuduki-list li:last-child {
-    border-bottom: double 10px #4b4b4b;
+    border-bottom: double 10px #4d4d4d;
 }
 
 .daikoutetuduki-list .label  {
@@ -91,7 +91,7 @@ span {
 
 
 .daikoutetuduki-list .ippantouroku-list {
-    border-top: solid 1px #4b4b4b;
+    border-top: solid 1px #4d4d4d;
     margin: 0 auto;
     text-align: center;
     display: none;
@@ -107,5 +107,5 @@ span {
 .dt-2 {
     background-color: #ffffff;
     padding: 30px 0px;
-    border-top: solid 1px #4b4b4b;
+    border-top: solid 1px #4d4d4d;
 }
