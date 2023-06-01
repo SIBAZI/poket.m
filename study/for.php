@@ -227,6 +227,66 @@ function oturi_juki(int $totale, int $pay)
 }
 // エラー防止
 // if(empty($_GET["total"]) || empty($_GET["pay"])) exit();
-oturi_juki($_GET["total"], $_GET["pay"]);
+// oturi_juki($_GET["total"], $_GET["pay"]);
 
 // 
+
+function fibonacci(int $max){
+    $before2 = 0;
+    $before1= 1;
+    echo($before2);
+    echo ("<br>");
+    echo($before1);
+    echo ("<br>");
+    while ($before2 + $before1 <= $max) {
+        echo($before2+$before1);
+        echo ("<br>");
+        // $next2 = $before1;
+        $next1 = $before1 + $before2;
+        $before2 = $before1;
+        $before1 = $next1;
+    }
+
+}
+
+// fibonacci(1000);
+
+
+// 関数とは
+// 引数
+function bai (int $i){
+// 戻り値
+    return $i*2;
+}
+// 戻り値受け取り
+$int = bai(220);
+// 出力
+// echo($int);
+
+
+/**
+ * 与えられた引数を累乗で返す
+ *
+ * @param integer $i　元の数
+ * @param integer $j　累乗
+ * @return integer　元の数を累乗した数
+ */
+function rui (int $i,int $j){
+    return $i**$j;
+}
+echo(rui(10,4));
+
+// 再起処理
+// ツリーの検索などにつかう
+// ソート
+function loop(int $i)
+{
+    echo($i);
+    if($i <=10 ){
+        $i++;
+        loop($i);
+    }
+}
+
+loop(1);
+
