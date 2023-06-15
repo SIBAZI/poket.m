@@ -1537,7 +1537,7 @@ p {
   position: absolute;
   top: 15px;
   left: auto;
-  font-size: 35px;
+  font-size: 30px;
   font-weight: 20px;
   color: #000000;
   padding: 0;
@@ -1580,7 +1580,7 @@ p {
   position: absolute;
   top: 45px;
   left: -14px;
-  font-size: 35px;
+  font-size: 30px;
   font-weight: 20px;
   color: #000000;
   padding: 0;
@@ -2433,25 +2433,14 @@ p {
 
 /* 車種名、大きさ タイタン1.55ｔ*/
 .car-name-titan155t {
+  text-align: center;
   position: absolute;
-  top: 120px;
-  left: 45px;
+  top: 108px;
+  left: 74px;
   font-size: 18px;
   font-weight: 20px;
   color: #000000;
   transform: rotate(calc(360deg / -9 * var(--i)));
-}
-
-.car-size-titan155t {
-  position: absolute;
-  top: 117px;
-  left: auto;
-  font-size: 14px;
-  font-weight: 20px;
-  color: #000000;
-  transform: rotate(calc(360deg / -9 * var(--i)));
-  -webkit-text-size-adjust: none;
-  font-size-adjust: none;
 }
 
 .catalogue4 li .car-name-titan155t {
@@ -2472,25 +2461,14 @@ p {
 
 /* 車種名、大きさ タイタン1.75ｔ~4.6t*/
 .car-name-titan175-46t {
+  text-align: center;
   position: absolute;
-  top: 85px;
-  left: 75px;
+  top: 83px;
+  left: 78px;
   font-size: 18px;
   font-weight: 20px;
   color: #000000;
   transform: rotate(calc(360deg / -9 * var(--i)));
-}
-
-.car-size-titan175-46t {
-  position: absolute;
-  top: 117px;
-  left: auto;
-  font-size: 14px;
-  font-weight: 20px;
-  color: #000000;
-  transform: rotate(calc(360deg / -9 * var(--i)));
-  -webkit-text-size-adjust: none;
-  font-size-adjust: none;
 }
 
 .catalogue4 li .car-name-titan175-46t {
