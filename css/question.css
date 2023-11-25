@@ -1,0 +1,136 @@
+body {
+  transform: translate3d(0, 0, 0);
+
+}
+
+.question {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: aqua; */
+
+
+
+}
+
+a {
+  text-decoration: none;
+}
+
+.question .questions {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: #8d8d8d;
+  transform: translate(calc(25px * var(--x)), calc(25px * var(--y)));
+  top: 42%;
+  scale: 0;
+  transition: 0.8s;
+  border-radius: 5%;
+
+}
+
+.question.question-popup .questions {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: #ffffff;
+  transform: translate(calc(290px * var(--x)), calc(265px * var(--y)));
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.20);
+  top: 21%;
+  scale: 1;
+  transition: 0.8s;
+  border-radius: 5%;
+
+
+}
+
+.question .questions p {
+  scale: 0;
+  color: #555555;
+  font-family: sans-serif;
+  background-color: #ffffff;
+  border-radius: 5%;
+  text-align: center;
+  height: 200px;
+  line-height: 200px;
+  font-size: 25px;
+  opacity: 0.3;
+
+
+}
+
+.question.question-popup .questions p {
+  scale: 1;
+  color: #555555;
+  font-family: sans-serif;
+  background-color: #ffffff;
+  border-radius: 5%;
+  text-align: center;
+  height: 200px;
+  line-height: 200px;
+  font-size: 25px;
+  opacity: 0.3;
+}
+
+
+
+.main .navigation.navigation-disappear span {
+  transform: translate(0px, 0px);
+  transition: 0.8s ease;
+  scale: 0;
+
+}
+
+.main .navigation.navigation-disappear~.close {
+  scale: 0;
+  transform: translate(0px, 0px);
+  transition: 0.8s ease;
+}
+
+.close2 {
+  scale: 0;
+  transition: 0.8s ease;
+  position: absolute;
+  top: 86%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.20);
+
+}
+
+.close2.close2-popup {
+  position: absolute;
+  top: 86%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.20);
+  scale: 1;
+  transition: 0.8s ease;
+
+}
+
+.close2 ion-icon {
+  font-size: 2em;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+
+}
+
+.catalogue.action-2 li {
+  display: none;
+}
+
+.catalogue3.action3-2 li {
+  display: none;
+}
+

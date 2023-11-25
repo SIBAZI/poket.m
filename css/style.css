@@ -1,0 +1,3367 @@
+@charset "UTF-8";
+
+/* 基盤設定 */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  font-size: 100%;
+}
+
+body {
+  display: flex;
+  /* 上下固定 */
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  background: #e7e7e7;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  background-color: #e7e7e7;
+  font-family: "Helvetica Neue", "Arial", "Hiragino Sans", "Meiryo", sans-serif;
+}
+
+li {
+  list-style: none;
+}
+
+p {
+  font-weight: bold;
+  text-align: left;
+}
+
+/* main */
+.main {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e7e7e7;
+  width: 170px;
+  height: 170px;
+  /* slide */
+  left: 0;
+  transition: 0.5s;
+}
+
+.main .navigation {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.8s;
+}
+
+.main .navigation span {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #8d8d8d;
+  transform: translate(calc(25px * var(--x)), calc(25px * var(--y)));
+  border-radius: 80%;
+  transition: transform 1s, width 0.1s, height 0.3s, background 0.5s;
+  transition-delay: calc(0.1s * var(--i));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main .navigation.active span {
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  transform: translate(calc(80px * var(--x)), calc(80px * var(--y)));
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.main .navigation span ion-icon {
+  transition: 1.3s;
+  font-size: 0em;
+  color: #555555;
+}
+
+.main .navigation.active span ion-icon {
+  font-size: 1.9em;
+  transform: rotate(360deg);
+}
+
+.main .navigation.active #kinou:hover {
+  border: solid 1px #555555;
+}
+
+.main .navigation .truck-img {
+  filter: invert(10%) sepia(0%) saturate(11%) hue-rotate(143deg)
+    brightness(101%) contrast(93%);
+  transform: 1.3s;
+  scale: 0s;
+  width: 0px;
+  height: 0px;
+}
+
+.main .navigation.active .truck-img {
+  width: 34px;
+  height: 34px;
+  scale: 1;
+  transform: rotate(360deg);
+}
+
+/* 真ん中✕ボタン */
+.close {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #8d8d8d;
+  transition: 0.5s;
+  transition-delay: 0.4s;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.main .navigation.active ~ .close {
+  width: 60px;
+  height: 60px;
+  pointer-events: initial;
+  transition-delay: 0.8s;
+  background: #ffffff;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+  z-index: 20;
+}
+
+.main .navigation ~ .close ion-icon {
+  font-size: 2em;
+  scale: 0;
+  color: #555555;
+  transition: 0.5s;
+}
+
+.main .navigation.active ~ .close ion-icon {
+  scale: 1;
+  transition-delay: 1s;
+}
+
+/* 普通車アイコン */
+.main .navigation .catalogue {
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+}
+
+.catalogue li {
+  color: #000000;
+  scale: 0;
+  position: absolute;
+  left: 70px;
+  top: 105px;
+  transform-origin: 0px;
+  background: #8d8d8d;
+  transition: 0.8s;
+  transform: rotate(calc(360deg / 10 * var(--i)));
+  list-style: none;
+  width: 10px;
+  height: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+  transform-origin: 40px;
+}
+
+.catalogue.action li {
+  position: absolute;
+  left: -260px;
+  top: 30px;
+  list-style: none;
+  transition: 0.8s;
+  transform: rotate(calc(360deg / 10 * var(--i)));
+  transform-origin: 370px;
+  scale: 1;
+  width: 165px;
+  height: 165px;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 普通車車種画像 */
+.catalogue li img {
+  transform: rotate(calc(360deg / -10 * var(--i)));
+  scale: 0;
+  transition: 0.4s;
+  display: inline-block;
+  align-items: center;
+}
+
+.catalogue.action li img {
+  scale: 1;
+}
+
+/* 車種名、大きさ CX-3*/
+.car-name-CX-3 {
+  position: absolute;
+  top: 9px;
+  left: 41px;
+  font-size: 35px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.car-size-CX-3 {
+  position: absolute;
+  top: 117px;
+  left: auto;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.catalogue li .car-name-CX-3 {
+  scale: 0;
+}
+
+.catalogue.action li .car-name-CX-3 {
+  scale: 1;
+}
+
+.catalogue li .car-size-CX-3 {
+  scale: 0;
+}
+
+.catalogue.action li .car-size-CX-3 {
+  scale: 1;
+}
+
+/* 車種名、大きさ CX-30*/
+.car-name-CX-30 {
+  position: absolute;
+  top: 22px;
+  left: 4px;
+  font-size: 35px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.car-size-CX-30 {
+  position: absolute;
+  top: 109px;
+  left: 45px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.catalogue li .car-name-CX-30 {
+  scale: 0;
+}
+
+.catalogue.action li .car-name-CX-30 {
+  scale: 1;
+}
+
+.catalogue li .car-size-CX-30 {
+  scale: 0;
+}
+
+.catalogue.action li .car-size-CX-30 {
+  scale: 1;
+}
+
+/* 車種名、大きさ MX-30*/
+.car-name-MX-30 {
+  position: absolute;
+  top: 45px;
+  left: -16px;
+  font-size: 35px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+  display: inline-block;
+}
+
+.car-size-MX-30 {
+  position: absolute;
+  top: 88px;
+  left: 62px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+  display: inline-block;
+}
+
+.catalogue li .car-name-MX-30 {
+  scale: 0;
+}
+
+.catalogue.action li .car-name-MX-30 {
+  scale: 1;
+}
+
+.catalogue li .car-size-MX-30 {
+  scale: 0;
+}
+
+.catalogue.action li .car-size-MX-30 {
+  scale: 1;
+}
+
+/* 車種名、大きさ CX-5*/
+.car-name-CX-5 {
+  position: absolute;
+  top: 80px;
+  left: -6px;
+  font-size: 35px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.car-size-CX-5 {
+  position: absolute;
+  top: 59px;
+  left: 64px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.catalogue li .car-name-CX-5 {
+  scale: 0;
+}
+
+.catalogue.action li .car-name-CX-5 {
+  scale: 1;
+}
+
+.catalogue li .car-size-CX-5 {
+  scale: 0;
+}
+
+.catalogue.action li .car-size-CX-5 {
+  scale: 1;
+}
+
+/* 車種名、大きさ CX-60*/
+.car-name-CX-60 {
+  position: absolute;
+  top: 103px;
+  left: 5px;
+  font-size: 35px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.car-size-CX-60 {
+  position: absolute;
+  top: 40px;
+  left: 46px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.catalogue li .car-name-CX-60 {
+  scale: 0;
+}
+
+.catalogue.action li .car-name-CX-60 {
+  scale: 1;
+}
+
+.catalogue li .car-size-CX-60 {
+  scale: 0;
+}
+
+.catalogue.action li .car-size-CX-60 {
+  scale: 1;
+}
+
+/* 車種名、大きさ CX-8*/
+.car-name-CX-8 {
+  position: absolute;
+  top: 114px;
+  left: 45px;
+  font-size: 35px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.car-size-CX-8 {
+  position: absolute;
+  top: 31px;
+  left: 20px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.catalogue li .car-name-CX-8 {
+  scale: 0;
+}
+
+.catalogue.action li .car-name-CX-8 {
+  scale: 1;
+}
+
+.catalogue li .car-size-CX-8 {
+  scale: 0;
+}
+
+.catalogue.action li .car-size-CX-8 {
+  scale: 1;
+}
+
+/* 車種名、大きさ MAZDA6*/
+.car-name-MAZDA6 {
+  position: absolute;
+  top: 97px;
+  left: 43px;
+  font-size: 30px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.car-size-MAZDA6 {
+  position: absolute;
+  top: 29px;
+  left: -2px;
+  font-size: 11px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.catalogue li .car-name-MAZDA6 {
+  scale: 0;
+}
+
+.catalogue.action li .car-name-MAZDA6 {
+  scale: 1;
+}
+
+.catalogue li .car-size-MAZDA6 {
+  scale: 0;
+}
+
+.catalogue.action li .car-size-MAZDA6 {
+  scale: 1;
+}
+
+/* 車種名、大きさ MAZDA3*/
+.car-name-MAZDA3 {
+  position: absolute;
+  top: 79px;
+  left: 59px;
+  font-size: 30px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.car-size-MAZDA3 {
+  position: absolute;
+  top: 54px;
+  left: -18px;
+  font-size: 11px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.catalogue li .car-name-MAZDA3 {
+  scale: 0;
+}
+
+.catalogue.action li .car-name-MAZDA3 {
+  scale: 1;
+}
+
+.catalogue li .car-size-MAZDA3 {
+  scale: 0;
+}
+
+.catalogue.action li .car-size-MAZDA3 {
+  scale: 1;
+}
+
+/* 車種名、大きさ MAZDA2*/
+.car-name-MAZDA2 {
+  position: absolute;
+  top: 53px;
+  left: 59px;
+  font-size: 30px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.car-size-MAZDA2 {
+  position: absolute;
+  top: 87px;
+  left: -20px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.catalogue li .car-name-MAZDA2 {
+  scale: 0;
+}
+
+.catalogue.action li .car-name-MAZDA2 {
+  scale: 1;
+}
+
+.catalogue li .car-size-MAZDA2 {
+  scale: 0;
+}
+
+.catalogue.action li .car-size-MAZDA2 {
+  scale: 1;
+}
+
+/* 車種名、大きさ ROADSTER*/
+.car-name-ROADSTER {
+  position: absolute;
+  top: 40px;
+  left: 32px;
+  font-size: 25px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.car-size-ROADSTER {
+  position: absolute;
+  top: 110px;
+  left: -5px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -10 * var(--i)));
+}
+
+.catalogue li .car-name-ROADSTER {
+  scale: 0;
+}
+
+.catalogue.action li .car-name-ROADSTER {
+  scale: 1;
+}
+
+.catalogue li .car-size-ROADSTER {
+  scale: 0;
+}
+
+.catalogue.action li .car-size-ROADSTER {
+  scale: 1;
+}
+
+/* 普通車navi */
+/* CX-3 navi */
+.navi1 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi1.open1 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi1 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi1 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi1 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi1 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi1 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu1 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi1 .detail1 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi1 .detail1.detail1denote1 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu1-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi1 .detail1-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi1 .detail1-2.detail1-2denote1-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi1 .detail1-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+.navi2 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 60px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi2.open2 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi2 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi2 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi2 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi2 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi2 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi2 .detail2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi2 .detail2.detail2denote2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi2 .detail2-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi2 .detail2-2.detail2-2denote2-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu2-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi2 .detail2-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+.navi3 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 60px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi3.open3 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi3 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi3 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi3 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi3 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi3 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu3 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi3 .detail3 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi3 .detail3.detail3denote3 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi3 .detail3-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi3 .detail3-2.detail3-2denote dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu3-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi3 .detail3-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi3 .detail3-2.detail3-2denote3-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi3 .detail3-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+.navi3 .detail3 dt.ev-dt-top {
+  border-top: solid 1px #fff;
+}
+
+.navi4 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 60px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi4.open4 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi4 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi4 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi4 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi4 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi4 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu4 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi4 .detail4 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi4 .detail4.detail4denote4 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu4-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi4 .detail4-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi4 .detail4-2.detail4-2denote4-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi4 .detail4-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+.navi5 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 60px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi5.open5 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi5 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi5 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi5 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi5 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi5 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu5 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi5 .detail5 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi5 .detail5.detail5denote5 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu5-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi5 .detail5-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi5 .detail5-2.detail5-2denote5-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi5 .detail5-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+.navi6 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 60px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi6.open6 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi6 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi6 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi6 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi6 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi6 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu6 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi6 .detail6 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi6 .detail6.detail6denote6 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu6-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi6 .detail6-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi6 .detail6-2.detail6-2denote6-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi6 .detail6-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+.navi7 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 60px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi7.open7 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi7 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi7 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi7 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi7 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi7 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu7 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi7 .detail7 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi7 .detail7.detail7denote7 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu7-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi7 .detail7-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi7 .detail7-2.detail7-2denote7-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi7 .detail7-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+.navi8 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 60px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi8.open8 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi8 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi8 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi8 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi8 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi8 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu8 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi8 .detail8 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi8 .detail8.detail8denote8 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu8-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi8 .detail8-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi8 .detail8-2.detail8-2denote8-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi8 .detail8-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+.navi9 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 60px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi9.open9 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi9 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi9 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi9 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi9 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi9 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu9 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi9 .detail9 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi9 .detail9.detail9denote9 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu9-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi9 .detail9-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi9 .detail9-2.detail9-2denote9-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi9 .detail9-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+.navi10 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 60px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi10.open10 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi10 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi10 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi10 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi10 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi10 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu10 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi10 .detail10 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi10 .detail10.detail10denote10 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu10-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi10 .detail10-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi10 .detail10-2.detail10-2denote10-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi10 .detail10-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+.navi10 .detail10 dt.RF-dt-top {
+  border-top: solid 1px #fff;
+}
+
+/* 軽自動車アイコン */
+.catalogue3 li {
+  color: #000000;
+  scale: 0;
+  position: absolute;
+  left: -55px;
+  top: 60px;
+  transform-origin: 50% 50px;
+  background: #8d8d8d;
+  transition: 0.8s;
+  transform: rotate(calc(360deg / 5 * var(--i)));
+  list-style: none;
+  width: 10px;
+  height: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+.catalogue3.action3 li {
+  position: absolute;
+  left: -130px;
+  top: -250px;
+  list-style: none;
+  transition: 0.8s;
+  transform: rotate(calc(360deg / 5 * var(--i)));
+  transform-origin: 50% 370px;
+  scale: 1;
+  width: 165px;
+  height: 165px;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 軽自動車車種画像 */
+.catalogue3 li img {
+  position: relative;
+  transform: rotate(calc(360deg / -5 * var(--i)));
+  scale: 0;
+  transition: 0.4s;
+}
+
+.catalogue3.action3 li img {
+  scale: 1;
+}
+
+/* 車種名、大きさ キャロル*/
+.car-name-carol {
+  -webkit-text-size-adjust: 100%;
+  position: absolute;
+  top: 15px;
+  left: auto;
+  font-size: 30px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -5 * var(--i)));
+}
+
+.car-size-carol {
+  -webkit-text-size-adjust: 100%;
+  position: absolute;
+  top: 120px;
+  left: auto;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -5 * var(--i)));
+}
+
+.catalogue3 li .car-name-carol {
+  scale: 0;
+}
+
+.catalogue3.action3 li .car-name-carol {
+  scale: 1;
+}
+
+.catalogue3 li .car-size-carol {
+  scale: 0;
+}
+
+.catalogue3.action3 li .car-size-carol {
+  scale: 1;
+}
+
+/* 車種名、大きさ フレア*/
+.car-name-flair {
+  -webkit-text-size-adjust: 100%;
+  position: absolute;
+  top: 45px;
+  left: -14px;
+  font-size: 30px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -5 * var(--i)));
+}
+
+.car-size-flair {
+  -webkit-text-size-adjust: 100%;
+  position: absolute;
+  top: 87px;
+  left: 63px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -5 * var(--i)));
+}
+
+.catalogue3 li .car-name-flair {
+  scale: 0;
+}
+
+.catalogue3.action3 li .car-name-flair {
+  scale: 1;
+}
+
+.catalogue3 li .car-size-flair {
+  scale: 0;
+}
+
+.catalogue3.action3 li .car-size-flair {
+  scale: 1;
+}
+
+/* 車種名、大きさ フレアワゴン*/
+.car-name-flair-wagon {
+  -webkit-text-size-adjust: 100%;
+  position: absolute;
+  top: 95px;
+  left: 5px;
+  font-size: 23px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -5 * var(--i)));
+}
+
+.car-size-flair-wagon {
+  -webkit-text-size-adjust: 100%;
+  position: absolute;
+  top: 37px;
+  left: 47px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -5 * var(--i)));
+}
+
+.catalogue3 li .car-name-flair-wagon {
+  scale: 0;
+}
+
+.catalogue3.action3 li .car-name-flair-wagon {
+  scale: 1;
+}
+
+.catalogue3 li .car-size-flair-wagon {
+  scale: 0;
+}
+
+.catalogue3.action3 li .car-size-flair-wagon {
+  scale: 1;
+}
+
+/* 車種名、大きさ フレアクロスオーバー*/
+.car-name-flair-crossover {
+  position: absolute;
+  top: 102px;
+  left: 49px;
+  font-size: 20px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -5 * var(--i)));
+}
+
+.car-size-flair-crossover {
+  position: absolute;
+  top: 39px;
+  left: -5px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -5 * var(--i)));
+}
+
+.catalogue3 li .car-name-flair-crossover {
+  scale: 0;
+}
+
+.catalogue3.action3 li .car-name-flair-crossover {
+  scale: 1;
+}
+
+.catalogue3 li .car-size-flair-crossover {
+  scale: 0;
+}
+
+.catalogue3.action3 li .car-size-flair-crossover {
+  scale: 1;
+}
+
+/* 車種名、大きさ スクラムワゴン*/
+.car-name-scrum-wagon {
+  position: absolute;
+  top: 42px;
+  left: 93px;
+  font-size: 20px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -5 * var(--i)));
+}
+
+.car-size-scrum-wagon {
+  -webkit-text-size-adjust: 100%;
+  position: absolute;
+  top: 88px;
+  left: -20px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  transform: rotate(calc(360deg / -5 * var(--i)));
+}
+
+.catalogue3 li .car-name-scrum-wagon {
+  scale: 0;
+}
+
+.catalogue3.action3 li .car-name-scrum-wagon {
+  scale: 1;
+}
+
+.catalogue3 li .car-size-scrum-wagon {
+  scale: 0;
+}
+
+.catalogue3.action3 li .car-size-scrum-wagon {
+  scale: 1;
+}
+
+/* 軽自動車navi */
+/* キャロルnavi */
+.navi11 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi11.open11 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi11 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi11 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi11 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi11 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi11 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu11 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi11 .detail11 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi11 .detail11.detail11denote11 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu11-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi11 .detail11-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi11 .detail11-2.detail11-2denote11-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi11 .detail11-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* フレアnavi */
+.navi12 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi12.open12 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi12 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi12 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi12 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi12 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi12 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu12 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi12 .detail12 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi12 .detail12.detail12denote12 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu12-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi12 .detail12-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi12 .detail12-2.detail12-2denote12-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi12 .detail12-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* フレアワゴンnavi */
+.navi13 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi13.open13 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi13 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi13 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi13 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi13 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi13 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu13 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi13 .detail13 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi13 .detail13.detail13denote13 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu13-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi13 .detail13-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi13 .detail13-2.detail13-2denote13-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi13 .detail13-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* フレアクロスオーバーnavi */
+.navi14 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi14.open14 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi14 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi14 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi14 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi14 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi14 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu14 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi14 .detail14 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi14 .detail14.detail14denote14 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu14-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi14 .detail14-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi14 .detail14-2.detail14-2denote14-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi14 .detail14-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* スクラムワゴンnavi */
+.navi15 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi15.open15 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi15 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi15 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi15 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi15 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi15 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu15 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi15 .detail15 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi15 .detail15.detail15denote15 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu15-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi15 .detail15-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi15 .detail15-2.detail15-2denote15-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi15 .detail15-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* 商用車アイコン */
+.main .navigation .catalogue4 {
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+}
+
+.catalogue4 li {
+  color: #000000;
+  scale: 0;
+  position: absolute;
+  left: 105px;
+  top: -10px;
+  transform-origin: 50% 40px;
+  background: #8d8d8d;
+  transition: 0.8s;
+  transform: rotate(calc(360deg / 9 * var(--i)));
+  list-style: none;
+  width: 10px;
+  height: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+.catalogue4.action4 li {
+  position: absolute;
+  left: 30px;
+  top: -350px;
+  list-style: none;
+  transition: 0.8s;
+  transform: rotate(calc(360deg / 9 * var(--i)));
+  transform-origin: 50% 370px;
+  scale: 1;
+  width: 165px;
+  height: 165px;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 商用車車種画像 */
+.catalogue4 li img {
+  transform: rotate(calc(360deg / -9 * var(--i)));
+  scale: 0;
+  transition: 0.4s;
+  display: inline-block;
+  align-items: center;
+}
+
+.catalogue4.action4 li img {
+  scale: 1;
+}
+
+/* 車種名、大きさ ボンゴブローニィ*/
+.car-name-bongo-brawny-van {
+  position: absolute;
+  text-align: center;
+  top: 9px;
+  left: 19px;
+  font-size: 17px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+}
+
+.car-size-bongo-brawny-van {
+  position: absolute;
+  top: 117px;
+  left: auto;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.catalogue4 li .car-name-bongo-brawny-van {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-name-bongo-brawny-van {
+  scale: 1;
+}
+
+.catalogue4 li .car-size-bongo-brawny-van {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-size-bongo-brawny-van {
+  scale: 1;
+}
+
+/* 車種名、大きさ ボンゴバン*/
+.car-name-bongo-van {
+  position: absolute;
+  top: 37px;
+  left: -6px;
+  font-size: 18px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+}
+
+.car-size-bongo-van {
+  position: absolute;
+  top: 109px;
+  left: 49px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.catalogue4 li .car-name-bongo-van {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-name-bongo-van {
+  scale: 1;
+}
+
+.catalogue4 li .car-size-bongo-van {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-size-bongo-van {
+  scale: 1;
+}
+
+/* 車種名、大きさ ボンゴトラック*/
+.car-name-bongo-truck {
+  position: absolute;
+  top: 55px;
+  left: 0px;
+  font-size: 18px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+}
+
+.car-size-bongo-truck {
+  position: absolute;
+  top: 83px;
+  left: 65px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.catalogue4 li .car-name-bongo-truck {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-name-bongo-truck {
+  scale: 1;
+}
+
+.catalogue4 li .car-size-bongo-truck {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-size-bongo-truck {
+  scale: 1;
+}
+
+/* 車種名、大きさ ファミリアバン*/
+.car-name-familia-van {
+  position: absolute;
+  top: 90px;
+  left: -17px;
+  font-size: 18px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+}
+
+.car-size-familia-van {
+  position: absolute;
+  top: 50px;
+  left: 61px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.catalogue4 li .car-name-familia-van {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-name-familia-van {
+  scale: 1;
+}
+
+.catalogue4 li .car-size-familia-van {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-size-familia-van {
+  scale: 1;
+}
+
+/* 車種名、大きさ タイタンダンプ*/
+.car-name-titan-dump {
+  position: absolute;
+  top: 112px;
+  left: 5px;
+  font-size: 18px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+}
+
+.car-size-titan-dump {
+  position: absolute;
+  top: 117px;
+  left: auto;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.catalogue4 li .car-name-titan-dump {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-name-titan-dump {
+  scale: 1;
+}
+
+.catalogue4 li .car-size-titan-dump {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-size-titan-dump {
+  scale: 1;
+}
+
+/* 車種名、大きさ タイタン1.55ｔ*/
+.car-name-titan155t {
+  text-align: center;
+  position: absolute;
+  top: 108px;
+  left: 74px;
+  font-size: 18px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+}
+
+.catalogue4 li .car-name-titan155t {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-name-titan155t {
+  scale: 1;
+}
+
+.catalogue4 li .car-size-titan155t {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-size-titan155t {
+  scale: 1;
+}
+
+/* 車種名、大きさ タイタン1.75ｔ~4.6t*/
+.car-name-titan175-46t {
+  text-align: center;
+  position: absolute;
+  top: 83px;
+  left: 78px;
+  font-size: 18px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+}
+
+.catalogue4 li .car-name-titan175-46t {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-name-titan175-46t {
+  scale: 1;
+}
+
+.catalogue4 li .car-size-titan175-46t {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-size-titan175-46t {
+  scale: 1;
+}
+
+/* 車種名、大きさ スクラムバン*/
+.car-name-scrum-van {
+  position: absolute;
+  top: 55px;
+  left: 95px;
+  font-size: 18px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+}
+
+.car-size-scrum-van {
+  position: absolute;
+  top: 83px;
+  left: -25px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.catalogue4 li .car-name-scrum-van {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-name-scrum-van {
+  scale: 1;
+}
+
+.catalogue4 li .car-size-scrum-van {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-size-scrum-van {
+  scale: 1;
+}
+
+/* 車種名、大きさ スクラムトラック*/
+.car-name-scrum-truck {
+  position: absolute;
+  top: 20px;
+  left: 80px;
+  font-size: 18px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+}
+
+.car-size-scrum-truck {
+  position: absolute;
+  top: 110px;
+  left: -8px;
+  font-size: 14px;
+  font-weight: 20px;
+  color: #000000;
+  transform: rotate(calc(360deg / -9 * var(--i)));
+  -webkit-text-size-adjust: none;
+  font-size-adjust: none;
+}
+
+.catalogue4 li .car-name-scrum-truck {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-name-scrum-truck {
+  scale: 1;
+}
+
+.catalogue4 li .car-size-scrum-truck {
+  scale: 0;
+}
+
+.catalogue4.action4 li .car-size-scrum-truck {
+  scale: 1;
+}
+
+/* ボンゴブローニィnavi */
+.navi16 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi16.open16 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi16 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi16 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi16 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi16 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi16 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu16 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi16 .detail16 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi16 .detail16.detail16denote16 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu16-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi16 .detail16-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi16 .detail16-2.detail16-2denote16-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi16 .detail16-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* ボンゴバンnavi */
+.navi17 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi17.open17 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi17 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi17 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi17 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi17 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi17 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu17 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi17 .detail17 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi17 .detail17.detail17denote17 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu17-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi17 .detail17-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi17 .detail17-2.detail17-2denote17-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi17 .detail17-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* スクラムトラックnavi */
+.navi18 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi18.open18 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi18 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi18 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi18 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi18 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi18 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu18 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi18 .detail18 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi18 .detail18.detail18denote18 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu18-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi18 .detail18-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi18 .detail18-2.detail18-2denote18-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi18 .detail18-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* ファミリアバンnavi */
+.navi19 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi19.open19 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi19 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi19 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi19 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi19 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi19 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu19 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi19 .detail19 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi19 .detail19.detail19denote19 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu19-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi19 .detail19-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi19 .detail19-2.detail19-2denote19-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi19 .detail19-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* タイタンダンプnavi */
+.navi20 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi20.open20 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi20 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi20 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi20 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi20 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi20 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu20 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi20 .detail20 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi20 .detail20.detail20denote20 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu20-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi20 .detail20-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi20 .detail20-2.detail20-2denote20-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi20 .detail20-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* タイタン1.55navi */
+.navi21 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi21.open21 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi21 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi21 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi21 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi21 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi21 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu21 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi21 .detail21 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi21 .detail21.detail21denote21 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu21-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi21 .detail21-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi21 .detail21-2.detail21-2denote21-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi21 .detail21-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* タイタン1.75～4.6navi */
+.navi22 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi22.open22 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi22 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi22 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi22 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi22 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi22 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu22 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi22 .detail22 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi22 .detail22.detail22denote22 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu22-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi22 .detail22-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi22 .detail22-2.detail22-2denote22-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi22 .detail22-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* スクラムバンnavi */
+.navi23 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi23.open23 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi23 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi23 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi23 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi23 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi23 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu23 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi23 .detail23 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi23 .detail23.detail23denote23 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu23-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi23 .detail23-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi23 .detail23-2.detail23-2denote23-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi23 .detail23-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+/* スクラムトラックnavi */
+.navi24 {
+  display: block;
+  position: fixed;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  color: #fff;
+  padding: 70px 25px;
+  background-color: #333333;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.navi24.open24 {
+  left: 0;
+  opacity: 1;
+}
+
+.navi24 h2 {
+  margin-top: 10%;
+  font-size: 25px;
+}
+
+.navi24 a {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navi24 ul {
+  margin: 0;
+  padding: 0;
+}
+
+.navi24 ul.navi-menu {
+  margin-bottom: 100px;
+}
+
+.navi24 ul.navi-menu li {
+  position: relative;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: solid 1px #fff;
+  border-top: solid 1px #fff;
+}
+
+.cataloguemenu24 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi24 .detail24 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi24 .detail24.detail24denote24 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.cataloguemenu24-2 {
+  font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+}
+
+.navi24 .detail24-2 dt {
+  position: absolute;
+  opacity: 0;
+}
+
+.navi24 .detail24-2.detail24-2denote24-2 dt {
+  position: static;
+  background: #4d4d4d;
+  padding: 15px 3px;
+  opacity: 1;
+  transition: 0.7s ease-in-out;
+}
+
+.navi24 .detail24-2 dt.dt-bottom {
+  border-bottom: solid 1px #fff;
+}
+
+.main.slide {
+  left: 120px;
+  top: 0px;
+  transition: all 0.5s;
+}
+
+.main.slide2 {
+  left: 120px;
+  top: 0px;
+  transition: all 0.5s;
+}
+
+.main.slide3 {
+  left: 120px;
+  top: 0px;
+  transition: all 0.5s;
+}
